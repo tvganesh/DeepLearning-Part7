@@ -530,7 +530,7 @@ layerActivationBackward  <- function(dA, cache, Y, activationFunc,numClasses){
     numtraining = dim(A_prev)[2]
     
     dW = 1/numtraining * dZ %*% t(A_prev)
-    db = 1/numtraining * sum(dZ)
+    db = 1/numtraining * rowSums(dZ)
     dA_prev = t(W) %*% dZ
   }
   retvals <- list("dA_prev"=dA_prev,"dW"=dW,"db"=db)
@@ -580,7 +580,7 @@ layerActivationBackwardWithReg  <- function(dA, cache, Y, lambd, activationFunc,
         numtraining = dim(A_prev)[2]
         # Add the regularization factor
         dW = 1/numtraining * dZ %*% t(A_prev) + (lambd/numtraining) * W
-        db = 1/numtraining * sum(dZ)
+        db = 1/numtraining * rowSums(dZ)
         dA_prev = t(W) %*% dZ
     }
     retvals <- list("dA_prev"=dA_prev,"dW"=dW,"db"=db)
